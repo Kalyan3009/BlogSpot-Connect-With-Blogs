@@ -52,6 +52,8 @@ def update(blog_post_id):
         return redirect(url_for('blog_posts.blog_post', blog_post_id=blog_post.id))
     # Pass back the old blog post information so they can start again with
     # the old text and title.
+
+    #we want the form to be pre filled with original content
     elif request.method == 'GET':
         form.title.data = blog_post.title
         form.text.data = blog_post.text
@@ -61,7 +63,7 @@ def update(blog_post_id):
 
 @blog_posts.route("/<int:blog_post_id>/delete", methods=['POST'])
 @login_required
-def delete_post(blog_post_id):
+def delete_post(blog_post_id): 
     blog_post = BlogPost.query.get_or_404(blog_post_id)
     if blog_post.author != current_user:
         abort(403)
